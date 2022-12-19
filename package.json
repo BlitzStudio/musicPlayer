@@ -1,0 +1,25 @@
+{
+  "name": "@blitz_studio/musicplayer",
+  "version": "0.0.1",
+  "description": "",
+  "main": "player.js",
+  "scripts": {
+    "dev": "nodemon player.js",
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlitzStudio/musicPlayer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BlitzStudio/musicPlayer/issues"
+  },
+  "homepage": "https://github.com/BlitzStudio/musicPlayer#readme",
+  "dependencies": {
+    "audic": "^3.0.1",
+    "get-mp3-duration": "^1.0.0"
+  }
+}
