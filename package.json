@@ -1,11 +1,10 @@
 {
-  "name": "@blitz_studio/musicplayer",
+  "name": "@blitz_studio/music_player",
   "version": "0.0.1",
   "description": "",
   "main": "player.js",
   "scripts": {
-    "dev": "nodemon player.js",
-    "test": ""
+    "start": "node player.js"
   },
   "repository": {
     "type": "git",

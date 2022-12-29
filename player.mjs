@@ -108,6 +108,7 @@ class musicPlayer {
     await this.syncTimelines();
 
     let currentTime = new Date();
+
     let timeout = (60 - currentTime.getSeconds()) * 1000;
     setTimeout(() => {
       setInterval(async () => {
@@ -130,5 +131,4 @@ class musicPlayer {
   }
 }
 
-const player = new musicPlayer();
-player.play(["17:00_18:00"], "C:\\Users\\40761\\Desktop\\music");
+export default musicPlayer;
