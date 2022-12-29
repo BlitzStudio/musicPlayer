@@ -19,6 +19,10 @@ class musicPlayer {
       }, duration);
     });
   }
+  async getRandomTrack() {
+    const index = Math.floor(Math.random() * this.musicArrayLength);
+    return `${this.url}\\${this.musicArray[index]}`;
+  }
 
   async startMusic(duration = 0) {
     const currentTime = new Date();
@@ -30,7 +34,8 @@ class musicPlayer {
       duration = (endM - startM) * 60000;
     }
     while (duration > 0) {
-      const url = path.join(__dirname, "music/3_03.mp3");
+      const url = await this.getRandomTrack();
+      console.log(url);
       const track = await fs.readFile(url);
       let trackDuration = getMP3Length(track);
       if (trackDuration >= duration) {
@@ -39,6 +44,13 @@ class musicPlayer {
       }
       await this.initPlayer(url, trackDuration);
       duration -= trackDuration;
+    }
+    if (this.currentIntervalIndex != this.array.length - 1) {
+      console.log("Marire");
+      this.currentIntervalIndex++;
+    } else {
+      console.log("Resetare`");
+      this.currentIntervalIndex = 0;
     }
   }
 
@@ -53,12 +65,18 @@ class musicPlayer {
           this.currentIntervalIndex = this.array.indexOf(interval);
         } else if (
           currentTime.getMinutes() >= startM &&
-          currentTime.getMinutes() < endM
+          (currentTime.getMinutes() < endM || endM == "00")
         ) {
           this.currentIntervalIndex = this.array.indexOf(interval);
           const duration =
-            (endM - currentTime.getMinutes()) * 60000 -
+            (60 - currentTime.getMinutes()) * 60000 -
             currentTime.getSeconds() * 1000;
+          if (endM != "00") {
+            const duration =
+              (endM - currentTime.getMinutes()) * 60000 -
+              currentTime.getSeconds() * 1000;
+          }
+
           console.log(duration);
 
           await this.startMusic(duration);
@@ -73,8 +91,22 @@ class musicPlayer {
     this.array = array;
     this.url = url;
     this.currentIntervalIndex = 0;
-    await this.syncTimelines();
+    this.musicArray = await fs.readdir(url);
+    this.musicArrayLength = this.musicArray.length;
+  }
+  log() {
+    console.log(this.array);
+    console.log(this.url);
     console.log(this.currentIntervalIndex);
+    console.log(this.musicArray);
+    console.log(this.musicArrayLength);
+  }
+
+  async play(array, url) {
+    await this.init(array, url);
+    this.log();
+    await this.syncTimelines();
+
     let currentTime = new Date();
     let timeout = (60 - currentTime.getSeconds()) * 1000;
     setTimeout(() => {
@@ -96,11 +128,7 @@ class musicPlayer {
       }, 1000);
     });
   }
-
-  log() {
-    console.table([this.array, this.url, this.i]);
-  }
 }
 
 const player = new musicPlayer();
-player.init(["18:19_18:28"], "url");
+player.play(["17:00_18:00"], "C:\\Users\\40761\\Desktop\\music");

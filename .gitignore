@@ -107,3 +107,4 @@ dist
 .dccache
 
 /music 
+test.mjs
