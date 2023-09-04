@@ -20,6 +20,6 @@
   "dependencies": {
     "audic": "^3.0.1",
     "get-mp3-duration": "^1.0.0",
-    "play-sound": "^1.1.5"
+    "play-sound": "^1.1.6"
   }
 }
